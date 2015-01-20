@@ -1,0 +1,244 @@
+<!doctype html />
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title></title>
+
+	<style type="text/css">
+
+	        div[waterfall] {
+
+	        	margin: auto;
+	        	width: 960px;
+                position: relative;
+            }
+            .row {
+                position: absolute;
+                margin: auto;
+                text-align: left;
+            }
+
+		body {
+
+			background-color: #f1f1f1;
+		}
+
+		.block {
+			 vertical-align: top;
+			display: inline-block;
+			width: 300px;
+			margin: 10px;
+			border-radius: 4px;
+	
+			background-color: #ffffff;
+
+			text-align: center;
+			color: #777777;
+			font-size: 24px;
+	
+		}
+		.left {
+			left: 0px;
+		}
+		.middle {
+
+			left: 320px;
+		}
+		.right {
+
+			left: 640px;
+		}
+
+
+
+	</style>
+</head>
+<body  ng-app="resume">
+        <div ng-controller="mainCtr">
+            <div waterfall></div>
+        </div>
+
+
+        <script type="text/javascript">
+            var ipsums = [
+            {
+            	src:'./images/me.jpg',
+            	 	content:'杨川宝'
+            },
+             {
+             	src:'./images/sdcj.jpg',
+             	content:'母校,电子商务专业'
+
+             },{
+
+             	src:'./images/gulpjs.jpg',
+             	content:'用它构建前端项目'
+             },
+             {
+             	src:'./images/bootstrap.jpg',
+             	content:'熟练'
+
+             },{
+
+             	src:'./images/angularjs.jpg',
+             	content:'熟练angular'
+             },
+             {
+
+             	src:'./images/less.jpg',
+             	content:'用它写css'
+             },
+             {
+
+             	src:'./images/javascript.png',
+             	content:'超级喜欢的一门语言'
+             },      
+              
+                 {
+
+             	src:'./images/css.png',
+             	content:'熟练'
+             },
+              {
+
+             	src:'./images/git.jpg',
+             	content:'熟练'
+             },
+        
+
+             {
+
+             	src:'./images/sublime.jpg',
+             	content:'用它写js'
+             },
+                   {
+
+             	src:'./images/jquery.jpg',
+             	content:'熟练'
+             },
+             {
+
+             	src:'./images/browserify.png',
+             content:'会用'
+             },
+                      {
+
+             	src:'./images/eclipse.jpg',
+             content:'用它写java'
+             },{
+
+             	src:'./images/maven.jpg',
+             content:'java的构建工具'
+             },{
+
+             	src:'./images/java.jpg',
+             content:'旧爱'
+             },
+
+
+             {
+
+             	src:'./images/spring.png',
+             content:'熟练掌握ssh'
+             }
+            ];
+        </script>
+
+
+        <script src="node_modules/jquery/dist/jquery.js"></script>
+        <script src="node_modules/angular/angular.js"></script>
+        <script type="text/javascript">
+
+            angular.module('resume', [])
+                .controller('mainCtr', function ($scope) {
+                }).directive('waterfall', function ($timeout) {
+                    var BOX_HEIGHT = 140;
+                    return {
+                        templateUrl: 'waterfall.html',
+                        restrict: 'A',
+                        controller: function ($scope) {
+                            // Initial positions
+                            // [left, middle, right]
+                            var topOffsets = {
+                                left: 0,
+                                right: 0,
+                                middle: 0
+                            };
+
+                            $scope.items =ipsums;
+            
+
+                            this.addRow = function (rowElement, selector) {
+
+                                $timeout(function () {
+               					
+                                		
+                                    // calculate top 
+                        
+                                    var top = topOffsets[selector];
+
+                                    // update topOffsets
+                                    topOffsets[selector] = top + rowElement.outerHeight(true);
+
+                                    console.log(top);
+
+                                    // change position
+                                    rowElement.animate({
+                                        top: top+'px'
+                                    });
+                                },100);
+
+                            };
+
+                        }
+                    };
+                }).directive('row', function ($timeout) {
+                    return {
+                        templateUrl: 'row.html',
+                        restrict: 'A',
+                        scope: {
+                           
+                            myContent: '=',
+                            mySrc: '=',
+                            myIndex: '='
+                        },
+                        require: '^waterfall',
+                        link: function (scope, element, attrs, rowCtrl) {
+                        				
+                        	
+
+                        	                 	// swith position
+                                	var selector,index=scope.myIndex;
+                                	if(index % 3===0) {
+
+                                		selector='left';
+
+                                	} else if(index % 3===1){
+                                		selector='middle';
+ 
+                                	} else {
+                                		selector='right';
+
+                                	}
+                                	element.addClass(selector);
+
+
+                           rowCtrl.addRow(element,selector);
+                        }
+                    }
+                });
+
+
+        </script>
+
+        <script type="text/ng-template" id="waterfall.html">
+            <div ng-repeat="item in items" class="row block" row  my-content="item.content" my-src="item.src" my-index="$index">
+            </div>
+        </script>
+        <script type="text/ng-template" id="row.html">
+     	
+         <img ng-src="{{mySrc}}" width="300px" ></img>
+          <p>{{myContent}}</p>
+        </script>
+</body>
+</html>

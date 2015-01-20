@@ -1,0 +1,135 @@
+<!doctype html />
+<html>
+    <head>
+        <style>
+            div[flow] {
+                position: relative;
+            }
+            .row {
+                position: absolute;
+                margin: auto;
+                text-align: left;
+            }
+
+            .block {
+                vertical-align: top;
+                text-align: center;
+                display: inline-block;
+                border: medium solid yellow;
+                border-radius: 20px;
+                margin: 10px;
+                padding: 10px;
+                background-color: orange;
+            }
+            .big {
+                width: 250px;
+           }
+            .small {
+                width: 100px;
+                height: 100px;
+            }
+            .invisible {
+                visibility: hidden;
+            }
+
+        </style>
+    </head>
+    <body ng-app="blockFlow">
+        <div ng-controller="mainCtr">
+            <div flow></div>
+        </div>
+        <script type="text/javascript">
+            var ipsums = [
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ut nisi enim. Sed sed facilisis mauris, ut mattis est. Praesent vehicula sed risus vitae accumsan. Nam lobortis accumsan gravida. Morbi malesuada id dolor in lobortis. Aliquam erat volutpat. Nunc egestas laoreet odio eget malesuada. Nullam nec sagittis ipsum. In id velit auctor, scelerisque metus nec, varius massa. Vestibulum eu metus ante. Nullam quis lacus a nisl eleifend luctus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed porttitor blandit sagittis. Proin ullamcorper lacus nulla, sit amet aliquet nisi luctus hendrerit. Aliquam vitae dignissim ex. Morbi sed tempor lectus, id venenatis neque.",
+                "Nulla dui justo, finibus a viverra placerat, tincidunt in odio. Donec rhoncus magna eget fringilla facilisis. Pellentesque leo nulla, rhoncus a pretium sit amet, semper id metus. Nullam fermentum consequat mi eget scelerisque. Praesent accumsan neque quis dolor finibus, vitae elementum sapien aliquet. Curabitur volutpat enim sit amet erat gravida, posuere ornare lacus dictum. Curabitur sed felis neque. Sed tellus nulla, lacinia non sagittis et, auctor vestibulum diam. Etiam ultrices vulputate nulla id laoreet. Fusce malesuada rutrum tortor sit amet bibendum.",
+                "Quisque diam lectus, convallis sit amet vulputate in, pretium in dui. Sed nec mi maximus arcu porttitor blandit. Ut ac sagittis eros, eget laoreet urna. Integer ornare a turpis nec tincidunt. Pellentesque ullamcorper placerat sem, quis mollis elit placerat eu. Sed pulvinar quam nec massa facilisis, ut cursus erat varius. Ut ullamcorper non odio quis mollis. Aenean vehicula sit amet sapien vitae venenatis. Praesent rutrum, nunc at dictum tincidunt, purus erat aliquet risus, non volutpat odio diam id nisi. Fusce posuere ultricies orci ut dapibus. Integer accumsan eu ipsum eu tincidunt. Phasellus in lacinia eros. In maximus interdum blandit. Quisque vulputate metus quis dictum tempus. Integer vestibulum lorem ut mi lacinia ornare. Quisque arcu nisi, pharetra id nulla ut, lacinia gravida lacus.",
+                "Suspendisse augue purus, semper quis sodales non, ullamcorper faucibus orci. Etiam vel tortor lorem. Ut bibendum neque at sem ultrices, ac tempus sem aliquam. Nam pharetra elit condimentum convallis mattis. Nunc a mauris ac massa interdum laoreet eu ut lacus. Aenean id varius massa, fringilla pharetra dolor. Ut nec molestie metus, a efficitur purus."
+            ];
+        </script>
+
+        <script src="node_modules/jquery/dist/jquery.js"></script>
+        <script src="node_modules/angular/angular.js"></script>
+        <script type="text/javascript">
+            angular.module('blockFlow', [])
+                .controller('mainCtr', function ($scope) {
+                }).directive('flow', function ($timeout) {
+                    var BOX_HEIGHT = 140;
+                    return {
+                        templateUrl: 'flow.html',
+                        restrict: 'A',
+                        controller: function ($scope) {
+                            // Initial positions
+                            // [left, middle, right]
+                            var topOffsets = {
+                                left: 0,
+                                right: 0,
+                                middle: 0
+                            };
+
+                            $scope.items = [];
+                            for (var i = 0 ; i < 30 ; i++) {
+                                $scope.items.push({
+                                    myTitle: generateTitle(),
+                                    myContent: generateContent()
+                                });
+                            }
+
+                            this.addRow = function (rowElement, isEven) {
+
+                                $timeout(function () {
+
+                                    // calculate top 
+                                    var selector = isEven ? 'left' : 'right';
+                                    var top = Math.max(topOffsets[selector], topOffsets.middle);
+                                    rowElement.css("position","static");
+                                    // update topOffsets
+                                    topOffsets[selector] = top + rowElement.outerHeight(true);
+
+                                    topOffsets.middle = top + BOX_HEIGHT;
+
+                                    // change position
+                                    rowElement.animate({
+                                        top: top+'px'
+                                    });
+                                });
+
+                            };
+
+                            function generateTitle () {
+                                var i = Math.floor((Math.random() * 10)) % 4;
+                                return ipsums[i].slice(-8);
+                            }
+                            function generateContent () {
+                                var i = Math.floor((Math.random() * 10)) % 4;
+                                return ipsums[i];
+                            }
+                        }
+                    };
+                }).directive('row', function () {
+                    return {
+                        templateUrl: 'row.html',
+                        restrict: 'A',
+                        scope: {
+                            myTitle: '=',
+                            myContent: '=',
+                            isEven: '='
+                        },
+                        require: '^flow',
+                        link: function (scope, element, attrs, rowCtrl) {
+                            rowCtrl.addRow(element, scope.isEven);
+                        }
+                    }
+                });
+        </script>
+        <script type="text/ng-template" id="flow.html">
+            <div ng-repeat="item in items" class="row" row my-title="item.myTitle" my-content="item.myContent" is-even="$even">
+            </div>
+        </script>
+        <script type="text/ng-template" id="row.html">
+             <div class="block big invisible" ng-hide="isEven"></div>
+            <div class="block small" ng-hide="isEven">{{myTitle}}</div>
+            <div class="block big">{{myContent}}</div>
+             <div class="block small" ng-show="isEven">{{myTitle}}</div>
+        </script>
+    </body>
+</html>
