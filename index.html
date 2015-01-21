@@ -1,8 +1,15 @@
 <!doctype html />
 <html>
-    <head>
-        <style>
-            div[flow] {
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title></title>
+
+	<style type="text/css">
+
+	        div[waterfall] {
+
+	        	margin: auto;
+	        	width: 960px;
                 position: relative;
             }
             .row {
@@ -11,51 +18,143 @@
                 text-align: left;
             }
 
-            .block {
-                vertical-align: top;
-                text-align: center;
-                display: inline-block;
-                border: medium solid yellow;
-                border-radius: 20px;
-                margin: 10px;
-                padding: 10px;
-                background-color: orange;
-            }
-            .big {
-                width: 250px;
-           }
-            .small {
-                width: 100px;
-                height: 100px;
-            }
-            .invisible {
-                visibility: hidden;
-            }
+		body {
 
-        </style>
-    </head>
-    <body ng-app="blockFlow">
+			background-color: #f1f1f1;
+		}
+
+		.block {
+			 vertical-align: top;
+			display: inline-block;
+			width: 300px;
+			margin: 10px;
+			border-radius: 4px;
+	
+			background-color: #ffffff;
+
+			text-align: center;
+			color: #777777;
+			font-size: 24px;
+	
+		}
+		.left {
+			left: 0px;
+		}
+		.middle {
+
+			left: 320px;
+		}
+		.right {
+
+			left: 640px;
+		}
+
+
+
+	</style>
+</head>
+<body  ng-app="resume">
         <div ng-controller="mainCtr">
-            <div flow></div>
+            <div waterfall></div>
         </div>
+
+
         <script type="text/javascript">
             var ipsums = [
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ut nisi enim. Sed sed facilisis mauris, ut mattis est. Praesent vehicula sed risus vitae accumsan. Nam lobortis accumsan gravida. Morbi malesuada id dolor in lobortis. Aliquam erat volutpat. Nunc egestas laoreet odio eget malesuada. Nullam nec sagittis ipsum. In id velit auctor, scelerisque metus nec, varius massa. Vestibulum eu metus ante. Nullam quis lacus a nisl eleifend luctus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed porttitor blandit sagittis. Proin ullamcorper lacus nulla, sit amet aliquet nisi luctus hendrerit. Aliquam vitae dignissim ex. Morbi sed tempor lectus, id venenatis neque.",
-                "Nulla dui justo, finibus a viverra placerat, tincidunt in odio. Donec rhoncus magna eget fringilla facilisis. Pellentesque leo nulla, rhoncus a pretium sit amet, semper id metus. Nullam fermentum consequat mi eget scelerisque. Praesent accumsan neque quis dolor finibus, vitae elementum sapien aliquet. Curabitur volutpat enim sit amet erat gravida, posuere ornare lacus dictum. Curabitur sed felis neque. Sed tellus nulla, lacinia non sagittis et, auctor vestibulum diam. Etiam ultrices vulputate nulla id laoreet. Fusce malesuada rutrum tortor sit amet bibendum.",
-                "Quisque diam lectus, convallis sit amet vulputate in, pretium in dui. Sed nec mi maximus arcu porttitor blandit. Ut ac sagittis eros, eget laoreet urna. Integer ornare a turpis nec tincidunt. Pellentesque ullamcorper placerat sem, quis mollis elit placerat eu. Sed pulvinar quam nec massa facilisis, ut cursus erat varius. Ut ullamcorper non odio quis mollis. Aenean vehicula sit amet sapien vitae venenatis. Praesent rutrum, nunc at dictum tincidunt, purus erat aliquet risus, non volutpat odio diam id nisi. Fusce posuere ultricies orci ut dapibus. Integer accumsan eu ipsum eu tincidunt. Phasellus in lacinia eros. In maximus interdum blandit. Quisque vulputate metus quis dictum tempus. Integer vestibulum lorem ut mi lacinia ornare. Quisque arcu nisi, pharetra id nulla ut, lacinia gravida lacus.",
-                "Suspendisse augue purus, semper quis sodales non, ullamcorper faucibus orci. Etiam vel tortor lorem. Ut bibendum neque at sem ultrices, ac tempus sem aliquam. Nam pharetra elit condimentum convallis mattis. Nunc a mauris ac massa interdum laoreet eu ut lacus. Aenean id varius massa, fringilla pharetra dolor. Ut nec molestie metus, a efficitur purus."
+            {
+            	src:'./images/me.jpg',
+            	 	content:'杨川宝'
+            },
+             {
+             	src:'./images/sdcj.jpg',
+             	content:'母校,电子商务专业'
+
+             },{
+
+             	src:'./images/gulpjs.jpg',
+             	content:'用它构建前端项目'
+             },
+             {
+             	src:'./images/bootstrap.jpg',
+             	content:'熟练'
+
+             },{
+
+             	src:'./images/angularjs.jpg',
+             	content:'熟练angular'
+             },
+             {
+
+             	src:'./images/less.jpg',
+             	content:'用它写css'
+             },
+             {
+
+             	src:'./images/javascript.png',
+             	content:'超级喜欢的一门语言'
+             },      
+              
+                 {
+
+             	src:'./images/css.png',
+             	content:'熟练'
+             },
+              {
+
+             	src:'./images/git.jpg',
+             	content:'熟练'
+             },
+        
+
+             {
+
+             	src:'./images/sublime.jpg',
+             	content:'用它写js'
+             },
+                   {
+
+             	src:'./images/jquery.jpg',
+             	content:'熟练'
+             },
+             {
+
+             	src:'./images/browserify.png',
+             content:'会用'
+             },
+                      {
+
+             	src:'./images/eclipse.jpg',
+             content:'用它写java'
+             },{
+
+             	src:'./images/maven.jpg',
+             content:'java的构建工具'
+             },{
+
+             	src:'./images/java.jpg',
+             content:'旧爱'
+             },
+
+
+             {
+
+             	src:'./images/spring.png',
+             content:'熟练掌握ssh'
+             }
             ];
         </script>
+
 
         <script src="node_modules/jquery/dist/jquery.js"></script>
         <script src="node_modules/angular/angular.js"></script>
         <script type="text/javascript">
-            angular.module('blockFlow', [])
+
+            angular.module('resume', [])
                 .controller('mainCtr', function ($scope) {
-                }).directive('flow', function ($timeout) {
+                }).directive('waterfall', function ($timeout) {
                     var BOX_HEIGHT = 140;
                     return {
-                        templateUrl: 'flow.html',
+                        templateUrl: 'waterfall.html',
                         restrict: 'A',
                         controller: function ($scope) {
                             // Initial positions
@@ -66,70 +165,80 @@
                                 middle: 0
                             };
 
-                            $scope.items = [];
-                            for (var i = 0 ; i < 30 ; i++) {
-                                $scope.items.push({
-                                    myTitle: generateTitle(),
-                                    myContent: generateContent()
-                                });
-                            }
+                            $scope.items =ipsums;
+            
 
-                            this.addRow = function (rowElement, isEven) {
+                            this.addRow = function (rowElement, selector) {
 
                                 $timeout(function () {
-
+               					
+                                		
                                     // calculate top 
-                                    var selector = isEven ? 'left' : 'right';
-                                    var top = Math.max(topOffsets[selector], topOffsets.middle);
-                                    rowElement.css("position","static");
+                        
+                                    var top = topOffsets[selector];
+
                                     // update topOffsets
                                     topOffsets[selector] = top + rowElement.outerHeight(true);
 
-                                    topOffsets.middle = top + BOX_HEIGHT;
+                                    console.log(top);
 
                                     // change position
                                     rowElement.animate({
                                         top: top+'px'
                                     });
-                                });
+                                },500);
 
                             };
 
-                            function generateTitle () {
-                                var i = Math.floor((Math.random() * 10)) % 4;
-                                return ipsums[i].slice(-8);
-                            }
-                            function generateContent () {
-                                var i = Math.floor((Math.random() * 10)) % 4;
-                                return ipsums[i];
-                            }
                         }
                     };
-                }).directive('row', function () {
+                }).directive('row', function ($timeout) {
                     return {
                         templateUrl: 'row.html',
                         restrict: 'A',
                         scope: {
-                            myTitle: '=',
+                           
                             myContent: '=',
-                            isEven: '='
+                            mySrc: '=',
+                            myIndex: '='
                         },
-                        require: '^flow',
+                        require: '^waterfall',
                         link: function (scope, element, attrs, rowCtrl) {
-                            rowCtrl.addRow(element, scope.isEven);
+                        				
+                        	
+
+                        	                 	// swith position
+                                	var selector,index=scope.myIndex;
+                                	if(index % 3===0) {
+
+                                		selector='left';
+
+                                	} else if(index % 3===1){
+                                		selector='middle';
+ 
+                                	} else {
+                                		selector='right';
+
+                                	}
+                                	element.addClass(selector);
+
+
+                           rowCtrl.addRow(element,selector);
                         }
                     }
                 });
+
+
         </script>
-        <script type="text/ng-template" id="flow.html">
-            <div ng-repeat="item in items" class="row" row my-title="item.myTitle" my-content="item.myContent" is-even="$even">
+
+        <script type="text/ng-template" id="waterfall.html">
+            <div ng-repeat="item in items" class="row block" row  my-content="item.content" my-src="item.src" my-index="$index">
             </div>
         </script>
         <script type="text/ng-template" id="row.html">
-             <div class="block big invisible" ng-hide="isEven"></div>
-            <div class="block small" ng-hide="isEven">{{myTitle}}</div>
-            <div class="block big">{{myContent}}</div>
-             <div class="block small" ng-show="isEven">{{myTitle}}</div>
+     	
+         <img ng-src="{{mySrc}}" width="300px" ></img>
+          <p>{{myContent}}</p>
         </script>
-    </body>
+</body>
 </html>
